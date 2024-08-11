@@ -10,7 +10,6 @@
 Перед тем как начать, убедитесь, что у вас установлены следующие инструменты:
 
 - [Docker](https://www.docker.com/get-started) (для запуска контейнеров)
-- [Docker Compose](https://docs.docker.com/compose/install/) (для управления многоконтейнерными приложениями)
 
 ## Настройка
 
@@ -45,7 +44,7 @@ http://localhost:8080
 ```
 Swagger UI будет доступен по адресу:
 ```
-http://localhost:8080/swagger-ui.html
+http://localhost:8080/swagger-ui/index.html
 ```
 
 База данных PostgreSQL будет доступна по адресу:
