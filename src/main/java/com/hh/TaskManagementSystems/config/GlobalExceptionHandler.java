@@ -32,7 +32,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      *
      * <p>Возвращает подробности проблемы с HTTP статусом 404 (Not Found) и сообщением об ошибке.</p>
      *
-     * @param e исключение типа {@link RuntimeException}, обычно {@link NotFoundException}
+     * @param e исключение типа {@link RuntimeException}
      * @return объект {@link ProblemDetail} с деталями ошибки и статусом 404
      */
 
