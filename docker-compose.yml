@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    image: openjdk:21-jdk
+    container_name: spring_app
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: ./mvnw spring-boot:run
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/TaskManagementSystems
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SIGNING_KEY: mbF4z&S}Qn$?CY-HgW3G[:AFw7kVfda8C$2cvRpJHu%'g-FA4;Nd&5"9M`HqQ@s#hbF&JPB^.U<25t9sgnxENV%+TL^!g&>x5$b(p;.rcJ#Nza
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: TaskManagementSystems
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
