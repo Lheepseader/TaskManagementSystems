@@ -29,7 +29,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     /**
-     * Обрабатывает исключения типа {@link NotFoundException}, {@link NotEnoughRightsException}, {@link UserAlreadyExistException}.
+     * Обрабатывает исключения типа {@link NotFoundException}, {@link NotEnoughRightsException},
+     * {@link UserAlreadyExistException}, {@link WrongJwtException}.
      *
      * <p>Возвращает подробности проблемы с HTTP статусом 404 (Not Found) и сообщением об ошибке.</p>
      *
@@ -37,10 +38,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @return объект {@link ProblemDetail} с деталями ошибки и статусом 404
      */
 
-    @ExceptionHandler({NotFoundException.class, NotEnoughRightsException.class, UserAlreadyExistException.class, WrongJwtException.class})
+    @ExceptionHandler({NotFoundException.class, NotEnoughRightsException.class, UserAlreadyExistException.class})
     public ProblemDetail handleControllerException(RuntimeException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
+    
 
     /**
      * Обрабатывает исключения, возникающие при недействительных аргументах методов.

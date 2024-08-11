@@ -128,7 +128,7 @@ public class JwtService {
             return Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token)
                     .getPayload();
 
-        } catch (Exception exception) {
+        } catch (RuntimeException exception) {
             throw new WrongJwtException();
         }
     }
