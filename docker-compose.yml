@@ -14,7 +14,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/TaskManagementSystems
       SPRING_DATASOURCE_USERNAME: myuser
       SPRING_DATASOURCE_PASSWORD: mypassword
-      SIGNING_KEY: mbF4z&S}Qn$?CY-HgW3G[:AFw7kVfda8C$2cvRpJHu%'g-FA4;Nd&5"9M`HqQ@s#hbF&JPB^.U<25t9sgnxENV%+TL^!g&>x5$b(p;.rcJ#Nza
+      SIGNING_KEY: SkN0Hn/eov8cDKc1/2TwyqsM0jQatcDN1jY+VSP+7PY=
 
   db:
     image: postgres:latest
