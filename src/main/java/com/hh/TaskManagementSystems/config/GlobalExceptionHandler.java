@@ -1,5 +1,6 @@
 package com.hh.TaskManagementSystems.config;
 
+import com.hh.TaskManagementSystems.exception.NotEnoughRightsException;
 import com.hh.TaskManagementSystems.exception.NotFoundException;
 import com.hh.TaskManagementSystems.exception.UserAlreadyExistException;
 import org.springframework.context.MessageSourceResolvable;
@@ -27,7 +28,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     /**
-     * Обрабатывает исключения типа {@link NotFoundException}.
+     * Обрабатывает исключения типа {@link NotFoundException}, {@link NotEnoughRightsException}, {@link UserAlreadyExistException}.
      *
      * <p>Возвращает подробности проблемы с HTTP статусом 404 (Not Found) и сообщением об ошибке.</p>
      *
@@ -35,7 +36,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @return объект {@link ProblemDetail} с деталями ошибки и статусом 404
      */
 
-    @ExceptionHandler({NotFoundException.class, NotFoundException.class, UserAlreadyExistException.class})
+    @ExceptionHandler({NotFoundException.class, NotEnoughRightsException.class, UserAlreadyExistException.class})
     public ProblemDetail handleControllerException(RuntimeException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
