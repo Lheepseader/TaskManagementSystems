@@ -1,6 +1,7 @@
 package com.hh.TaskManagementSystems.config;
 
 import com.hh.TaskManagementSystems.exception.NotFoundException;
+import com.hh.TaskManagementSystems.exception.UserAlreadyExistException;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.http.*;
 import org.springframework.lang.NonNull;
@@ -34,7 +35,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @return объект {@link ProblemDetail} с деталями ошибки и статусом 404
      */
 
-    @ExceptionHandler({NotFoundException.class})
+    @ExceptionHandler({NotFoundException.class, NotFoundException.class, UserAlreadyExistException.class})
     public ProblemDetail handleControllerException(RuntimeException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
