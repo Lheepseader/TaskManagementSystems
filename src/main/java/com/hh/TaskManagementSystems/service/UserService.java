@@ -1,6 +1,7 @@
 package com.hh.TaskManagementSystems.service;
 
 import com.hh.TaskManagementSystems.exception.NotFoundException;
+import com.hh.TaskManagementSystems.exception.UserAlreadyExistException;
 import com.hh.TaskManagementSystems.model.User;
 import com.hh.TaskManagementSystems.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,11 +29,11 @@ public class UserService {
      *
      * @param user объект пользователя, который нужно создать
      * @return созданный пользователь
-     * @throws RuntimeException если пользователь с таким email уже существует
+     * @throws UserAlreadyExistException если пользователь с таким email уже существует
      */
     public User createUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Пользователь с таким email уже существует");
+            throw new UserAlreadyExistException("email");
         }
         return userRepository.save(user);
     }
@@ -43,7 +44,6 @@ public class UserService {
      * <p>Проверяет, существует ли пользователь с указанным email. Если существует, удаляет его.
      * В противном случае выбрасывается исключение.</p>
      *
-     * @param id    идентификатор пользователя (не используется в текущей реализации)
      * @param email email пользователя, которого нужно удалить
      * @throws NotFoundException если пользователь с таким email не найден
      */

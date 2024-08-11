@@ -3,6 +3,7 @@ package com.hh.TaskManagementSystems.service;
 import com.hh.TaskManagementSystems.converter.TaskConverter;
 import com.hh.TaskManagementSystems.dto.CommentDto;
 import com.hh.TaskManagementSystems.dto.TaskDto;
+import com.hh.TaskManagementSystems.exception.NotEnoughRightsException;
 import com.hh.TaskManagementSystems.exception.NotFoundException;
 import com.hh.TaskManagementSystems.model.Task;
 import com.hh.TaskManagementSystems.model.TaskPriority;
@@ -54,7 +55,7 @@ public class TaskService {
      * @param id             идентификатор задачи, которую нужно обновить
      * @param updatedTaskDto DTO объекта задачи с обновленными данными
      * @return обновленная задача в формате DTO
-     * @throws RuntimeException  если текущий пользователь не является автором задачи
+     * @throws NotEnoughRightsException  если текущий пользователь не является автором задачи
      * @throws NotFoundException если задача с указанным идентификатором не найдена
      */
     public TaskDto updateTask(Long id, TaskDto updatedTaskDto) {
@@ -67,7 +68,7 @@ public class TaskService {
             updatedTask.setComments(task.getComments());
             return taskConverter.toDto(taskRepository.save(updatedTask));
         }
-        throw new RuntimeException("Пользователь не является автором");
+        throw new NotEnoughRightsException();
     }
 
     /**
@@ -76,7 +77,7 @@ public class TaskService {
      * <p>Проверяет, является ли текущий пользователь автором задачи. Если да, удаляет задачу из базы данных.</p>
      *
      * @param id идентификатор задачи, которую нужно удалить
-     * @throws RuntimeException  если текущий пользователь не является автором задачи
+     * @throws NotEnoughRightsException  если текущий пользователь не является автором задачи
      * @throws NotFoundException если задача с указанным идентификатором не найдена
      */
     public void deleteTask(Long id) {
@@ -86,7 +87,7 @@ public class TaskService {
         if (isAuthorOfTask(user, task)) {
             taskRepository.deleteById(id);
         } else {
-            throw new RuntimeException("Пользователь не является автором");
+            throw new NotEnoughRightsException();
         }
     }
 
@@ -98,7 +99,7 @@ public class TaskService {
      * @param id     идентификатор задачи, статус которой нужно обновить
      * @param status новый статус задачи
      * @return обновленная задача в формате DTO
-     * @throws RuntimeException  если текущий пользователь не является автором или исполнителем задачи
+     * @throws NotEnoughRightsException  если текущий пользователь не является автором или исполнителем задачи
      * @throws NotFoundException если задача с указанным идентификатором не найдена
      */
     public TaskDto updateStatus(Long id, TaskStatus status) {
@@ -108,7 +109,7 @@ public class TaskService {
             task.setStatus(status);
             return taskConverter.toDto(taskRepository.save(task));
         }
-        throw new RuntimeException("Пользователь не является автором или исполнителем");
+        throw new NotEnoughRightsException();
     }
 
     /**
@@ -119,7 +120,7 @@ public class TaskService {
      * @param id    идентификатор задачи, у которой нужно обновить исполнителя
      * @param email email нового исполнителя задачи
      * @return обновленная задача в формате DTO
-     * @throws RuntimeException  если текущий пользователь не является автором задачи
+     * @throws NotEnoughRightsException  если текущий пользователь не является автором задачи
      * @throws NotFoundException если задача с указанным идентификатором не найдена или пользователь не найден
      */
     public TaskDto updateExecutor(Long id, String email) {
@@ -130,7 +131,7 @@ public class TaskService {
             task.setExecutor(executor);
             return taskConverter.toDto(taskRepository.save(task));
         }
-        throw new RuntimeException("Пользователь не является автором");
+        throw new NotEnoughRightsException();
     }
 
     /**
