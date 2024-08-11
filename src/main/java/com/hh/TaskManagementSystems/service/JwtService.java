@@ -1,5 +1,7 @@
 package com.hh.TaskManagementSystems.service;
 
+import com.hh.TaskManagementSystems.exception.NotFoundException;
+import com.hh.TaskManagementSystems.exception.WrongJwtException;
 import com.hh.TaskManagementSystems.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -119,10 +121,16 @@ public class JwtService {
      *
      * @param token JWT токен
      * @return все требования токена
+     * @throws NotFoundException если Jwt токен неверный
      */
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token)
-                .getPayload();
+        try {
+            return Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token)
+                    .getPayload();
+
+        } catch (Exception exception) {
+            throw new WrongJwtException();
+        }
     }
 
     /**

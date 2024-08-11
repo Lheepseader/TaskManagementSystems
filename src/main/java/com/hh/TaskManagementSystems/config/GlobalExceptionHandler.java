@@ -3,6 +3,7 @@ package com.hh.TaskManagementSystems.config;
 import com.hh.TaskManagementSystems.exception.NotEnoughRightsException;
 import com.hh.TaskManagementSystems.exception.NotFoundException;
 import com.hh.TaskManagementSystems.exception.UserAlreadyExistException;
+import com.hh.TaskManagementSystems.exception.WrongJwtException;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.http.*;
 import org.springframework.lang.NonNull;
@@ -36,7 +37,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @return объект {@link ProblemDetail} с деталями ошибки и статусом 404
      */
 
-    @ExceptionHandler({NotFoundException.class, NotEnoughRightsException.class, UserAlreadyExistException.class})
+    @ExceptionHandler({NotFoundException.class, NotEnoughRightsException.class, UserAlreadyExistException.class, WrongJwtException.class})
     public ProblemDetail handleControllerException(RuntimeException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
